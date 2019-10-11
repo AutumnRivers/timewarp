@@ -64,7 +64,7 @@ Local development with Timewarp is also very simple.
 
 1. Clone the repo
 
-`git clone htttps://www.github.com/SmartieCodes/timewarp.git`
+`git clone https://www.github.com/SmartieCodes/timewarp.git`
 
 2. Go to the directory
 
@@ -106,4 +106,4 @@ Twitter: `@NatiRivers`
 
 E-Mail: `smarti3plays@gmail.com`
 
-Matrix: `autumnrivers.matrix.im`
+Matrix: `@autumnrivers:matrix.org`
