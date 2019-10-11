@@ -1,0 +1,3 @@
+*.zip
+adb/
+node_modules/

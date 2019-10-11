@@ -1,0 +1,35 @@
+{
+  "name": "timewarp",
+  "version": "0.1.0",
+  "description": "An unofficial desktop client for TWRP.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "setup-win": "npm i -g cash"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SmartieCodes/timewarp.git"
+  },
+  "keywords": [
+    "twrp"
+  ],
+  "author": "Autumn",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/SmartieCodes/timewarp/issues"
+  },
+  "homepage": "https://github.com/SmartieCodes/timewarp#readme",
+  "devDependencies": {
+    "electron": "^6.0.12",
+    "materialize-css": "^1.0.0",
+    "node-fetch": "^2.6.0",
+    "unzipper": "^0.10.5"
+  },
+  "dependencies": {
+    "shelljs": "^0.8.3",
+    "vex-dialog": "^1.1.0",
+    "vex-js": "^4.1.0"
+  }
+}
