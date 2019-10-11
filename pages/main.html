@@ -11,17 +11,20 @@
 		</div>
 		<div class="conatiner">
 			<div id="center-full">
-				<h4>No Devices Found</h4>
-				<p>Plug in your Android device to your PC with a USB-C to USB-A converter.</p>
+				<div id="device-list">
+					<h4>No Devices Found</h4>
+					<p>Plug in your Android device to your PC with a USB-C to USB-A converter.</p>
+				</div>
+				
+				<br/><br/>
+
+				<div id="device-scan">
+					<div class="progress" id="loading">
+						<div class="indeterminate"></div>
+					</div>
+					<p>Scanning for devices...</p>
+				</div>
 				<!-- TODO: Add support for ADB over LAN -->
-
-				<!--div class="android-device">
-					<h3>ANDROID ID</h3>
-					<p>Android Version</p>
-					<p>0 Backup(s)</p>
-
-					<a class="waves-effect waves-light blue btn">Select Device</a>
-				</div-->
 
 				<br/><br/><br/>
 			</div>

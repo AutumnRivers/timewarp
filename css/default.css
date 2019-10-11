@@ -30,7 +30,7 @@ footer {
 	margin: 1px;
 }
 
-.android-device a.btn {
+a.select-btn {
 	float: right;
 	position: relative;
 	bottom: 65px;
