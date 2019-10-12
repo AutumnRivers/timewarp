@@ -1,12 +1,31 @@
 var shell = require('shelljs');
 var twVer = require('electron').remote.app.getVersion();
 var M = require('materialize-css');
+var ipc = require('electron').ipcRenderer;
 shell.config.silent = true;
 
+var vex = require('vex-js');
+vex.registerPlugin(require('vex-dialog'));
+vex.defaultOptions.className = 'vex-theme-default';
+
 function timewarp() {
-    /*var elems = document.querySelectorAll('.modal');
-	var instances = M.Modal.init(elems, {dismissible: false});*/
 	M.AutoInit();
+	ipc.on('open-adb-vex-input', () => {
+		vex.dialog.prompt({
+			message: 'Type in the remote ADB URI.',
+			placeholder: '192.168.0.10:5555',
+			callback: (adbIp) => {
+				if(!adbIp) return;
+				shell.exec('adb connect ' + adbIp, (c, o) => {
+					if(o.startsWith('unable to connect')) {
+						console.error('Connection to Remote ADB server failed:\n\n' + o);
+					} else {
+						console.debug('Connection to remote ADB server established.');
+					}
+				})
+			}
+		})
+	});
 		
 	document.getElementById('tw-ver').innerHTML = twVer;
 	getVersion();
@@ -52,6 +71,7 @@ function listDevices(c, d) {
 		shell.exec('adb shell settings get secure android_id', {async: true}, (c, id) => {
 			shell.exec('adb shell getprop ro.build.version.release', {async: true}, (code, ver) => {
 				devicesAdded++;
+				if(!id) return console.error(device + ' is unauthorized or corrupted.');
 				listHTML.push('<div class="android-device"><h3>' + id + '</h3><p>Android ' + ver + '<p>0 Backup(s)</p><a class="blue btn waves-effect waves-light select-btn modal-trigger"  onclick="openDeviceModal(\'' + device + '\')" href="#device-modal">Select Device</a></div>');
 				if(devicesAdded == deviceList.length) {
 					finishUp();

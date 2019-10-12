@@ -16,8 +16,42 @@ function startApp() {
 		icon: './logo-icon.png'
     });
 
-    /*var menu = Menu.buildFromTemplate(require('./menu.json'));
-    Menu.setApplicationMenu(menu);*/
+    var menu = Menu.buildFromTemplate([
+        {
+            "label": "Timewarp",
+            "submenu": [
+                {"label": "Settings"},
+                {"label": "About"},
+                {"label": "Quit"},
+                {"label": "Connect to Remote ADB",
+                click() {
+                    win.webContents.send('open-adb-vex-input');
+                }}
+            ]
+        },
+        {
+            "label": "TWRP",
+            "submenu": [
+                {"label": "Quick Backup"},
+                {"label": "Quick Restore"},
+                {"label": "Quick Sideload"},
+                {"label": "Backup TWRP"},
+                {"label": "Update TWRP"}
+            ]
+        },
+        {
+            "label": "Advanced",
+            "submenu": [
+                {"label": "Custom Backup"},
+                {"label": "Custom Restore"},
+                {"label": "Advanced Sideload"},
+                {"label": "ADB Shell"},
+                {"label": "Restart ADB Service"},
+                {"label": "Quick Toggle Logcat"}
+            ]
+        }
+    ]);
+    Menu.setApplicationMenu(menu);
 
     win.loadFile('./pages/startup.html');
 }
