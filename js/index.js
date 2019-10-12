@@ -1,8 +1,12 @@
 var shell = require('shelljs');
 var twVer = require('electron').remote.app.getVersion();
+var M = require('materialize-css');
 shell.config.silent = true;
 
 function timewarp() {
+    /*var elems = document.querySelectorAll('.modal');
+	var instances = M.Modal.init(elems, {dismissible: false});*/
+	M.AutoInit();
 		
 	document.getElementById('tw-ver').innerHTML = twVer;
 	getVersion();
@@ -43,11 +47,12 @@ function listDevices(c, d) {
 	var listHTML = [];
 	var devicesAdded = 0;
 	var devices = deviceList.forEach((device, i) => {
+		var device = device.slice(0, -1)
 		//<div class=android-device><h3>ANDROID ID</h3><p>Android Version<p>0 Backup(s)</p><a class="blue btn waves-effect waves-light">Select Device</a></div>
 		shell.exec('adb shell settings get secure android_id', {async: true}, (c, id) => {
 			shell.exec('adb shell getprop ro.build.version.release', {async: true}, (code, ver) => {
 				devicesAdded++;
-				listHTML.push('<div class="android-device"><h3>' + id + '</h3><p>Android ' + ver + '<p>0 Backup(s)</p><a class="blue btn waves-effect waves-light select-btn">Select Device</a></div>');
+				listHTML.push('<div class="android-device"><h3>' + id + '</h3><p>Android ' + ver + '<p>0 Backup(s)</p><a class="blue btn waves-effect waves-light select-btn modal-trigger"  onclick="openDeviceModal(\'' + device + '\')" href="#device-modal">Select Device</a></div>');
 				if(devicesAdded == deviceList.length) {
 					finishUp();
 				}
@@ -78,4 +83,14 @@ function refreshList() {
 
 function addRefreshButton(r) {
 	document.getElementById('device-scan').innerHTML = '<a class="blue btn waves-effect waves-light" onclick="refreshList(); clearInterval(' + r + ');">Refresh List</a>';
+}
+
+function openDeviceModal(device) {
+	var deviceNum = device.split('	')[0];
+	shell.exec('adb shell getprop ro.product.manufacturer', (code, output) => {
+		shell.exec('adb shell getprop ro.product.model', (c, o) => {
+			document.getElementById('device-details').innerHTML = output + ' ' + o;
+			document.getElementById('adb-id').value = deviceNum;
+		})
+	});
 }

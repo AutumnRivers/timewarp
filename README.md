@@ -1,5 +1,9 @@
-<h1 align="center">Timewarp</h1>
-<h2 align="center">Unofficial TWRP Desktop Client</h2>
+<h1 align="center"><img src="./logo.png"/></h1>
+
+<div align="center">
+<img src="https://david-dm.org/SmartieCodes/timewarp.svg">
+<img src="https://img.shields.io/github/license/SmartieCodes/timewarp">
+</div>
 
 ---
 **Table Of Contents**
@@ -33,7 +37,7 @@ Now that we got that out of the way, on to the good stuff!
 * HDD with at least 20GB of storage
 
 ## Recommended
-* ADB 1.0.39 or later (Again, Timewarp will install this if needed.)
+* ADB 1.0.3 or later (Again, Timewarp will install this if needed.)
 * Rooted Android Device 7.1+
 * TWRP Custom Recovery 3.1.1+
 * SSD with at least 50GB of storage

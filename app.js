@@ -13,7 +13,7 @@ function startApp() {
             webviewTag: false
         },
 		frame: true,
-		icon: './logo-temp.png'
+		icon: './logo-icon.png'
     });
 
     /*var menu = Menu.buildFromTemplate(require('./menu.json'));

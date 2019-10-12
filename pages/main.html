@@ -9,6 +9,7 @@
 		<div id="top-banner">
 			<h5>Timewarp - Version <span id="tw-ver"></span></h5>
 		</div>
+
 		<div class="conatiner">
 			<div id="center-full">
 				<div id="device-list">
@@ -29,6 +30,106 @@
 				<br/><br/><br/>
 			</div>
 		</div>
+
+		<!-- Modals -->
+
+		<!-- Device Modal -->
+		<div id="device-modal" class="modal">
+			<div class="modal-content">
+				<input type="hidden" name="adb-id" id="adb-id"/>
+				<p class="center" id="device-details">Loading...</p>
+				<div class="row">
+					<div class="col s12">
+						<ul class="tabs">
+							<li class="tab col s3"><a href="#basic-device" class="blue-text">Basic</a></li>
+							<li class="tab col s3"><a href="#adv-device-backup" class="green-text">Adv. Backup</a></li>
+							<li class="tab col s3"><a href="#adv-device-restore" class="green-text">Adv. Restore</a></li>
+							<li class="tab col s3"><a href="#adv-device-sideload" class="green-text">Adv. Sideload</a></li>
+						</ul>
+					</div>
+					<div id="basic-device" class="modal-c">
+						<a class="blue btn">Backup</a>
+						<p><b>BACKUP</b> - Backup your current device with the default settings. Will reboot your device into TWRP if it's not in TWRP already.</p>
+						<a class="blue btn">Restore</a>
+						<p><b>RESTORE</b> - Restore the latest backup for this device. Will reboot your device into TWRP if it's not in TWRP already.</p>
+						<a class="blue btn">Flash ROM</a>
+						<p><b>FLASH ROM</b> - Flash a custom ROM or OTA update. <b>DANGER! FLASHING ROMS CAN BRICK YOUR DEVICE! PROCEED WITH CAUTION!</b></p>
+					</div>
+					<div id="adv-device-backup" class="modal-c">
+						<p>These options are for advanced users only. If you don't know what you're doing, go back to Basic!</p>
+
+						<h4>Partitions</h4>
+						<div id="partitions">
+							<p>
+								<label>
+									<input type="checkbox" class="green filled-in" checked name="backupOpts" value="system"/>
+									<span>System</span>
+								</label>
+							</p>
+							<p>
+								<label>
+									<input type="checkbox" class="green filled-in" checked name="backupOpts" value="data"/>
+									<span>Data</span>
+								</label>
+							</p>
+							<p>
+								<label>
+									<input type="checkbox" class="green filled-in" name="backupOpts" value="cache"/>
+									<span>Cache</span>
+								</label>
+							</p>
+							<p>
+								<label>
+									<input type="checkbox" class="green filled-in" checked name="backupOpts" value="bootImg"/>
+									<span>Boot Image</span>
+								</label>
+							</p>
+							<p>
+								<label>
+									<input type="checkbox" class="green filled-in" name="backupOpts" value="misc"/>
+									<span>Misc</span>
+								</label>
+							</p>
+							<p>
+								<label>
+									<input type="checkbox" class="green filled-in" checked name="backupOpts" value="recovery"/>
+									<span>Recovery</span>
+								</label>
+							</p>
+						</div>
+						<h4>Misc.</h4>
+						<p>
+							<label>
+								<input type="checkbox" class="green filled-in" checked name="backupOpts" value="compress"/>
+								<span>Compress Data</span>
+							</label>
+						</p>
+						<div class="input-field">
+							<input id="filename" type="text" value="backup.ab" id="filename"/>
+							<label for="filename">Backup Filename</label>
+						</div>
+						<div class="input-field">
+							<input id="folderpath" type="text" value="./backups/"/>
+							<label for="folderpath">Backup Folderpath</label>
+						</div>
+						<p>Backup Folderpath uses a PathLike value. So if you'd like to backup in say, the Documents folder, you'd have to type in "/path/to/Documents". Make sure you're running with admin perms if you're saving somewhere sensitive!</p>
+						<a onclick="backupDevice(document.getElementById('adb-id').value)" class="green btn">Backup Device</a>
+					</div>
+					<div id="adv-device-restore" class="modal-c">
+						<div class="input-field">
+							<input id="folderpath" type="text" value="./backups/backup.ab" id="restoreFile"/>
+							<label for="folderpath">Restoration Folderpath</label>
+							<p>Restoration Folderpath uses a PathLike value. So if you'd like to restore an image from say, Documents... you'd have to type in "/path/to/Documents/backup.ab".</p>
+						</div>
+						<a onclick="restoreDevice(document.getElementById('restoreFile').value);" class="green btn">Restore Device</a>
+					</div>
+					<div id="adv-device-sideload" class="modal-c">
+						<!-- TODO: Add sideloading -->
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<footer>
 			<p style="float: right;">Developed by Autumn Rivers</p>
 			<p id="tech-details">Loading...</p>

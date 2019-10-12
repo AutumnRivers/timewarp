@@ -36,6 +36,21 @@ a.select-btn {
 	bottom: 65px;
 }
 
+.modal .modal-content {
+	padding: 0;
+	margin: 0;
+}
+
+.row .col { 
+	margin: 0;
+	padding: 0;
+}
+
+.modal-c {
+	padding: 10px;
+	padding-top: 60px;
+}
+
 #load-div {
 	position: absolute;
 	width: 50%;
@@ -67,4 +82,30 @@ a.select-btn {
 	bottom: 0;
 	margin: auto;
 	text-align: center;
+}
+
+#device-details {
+	text-transform: capitalize;
+}
+
+/* Scrollbar */
+
+/* Width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e4e4e4;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(86, 87, 107)
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(55, 54, 70);
 }
