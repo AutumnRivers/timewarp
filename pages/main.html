@@ -15,6 +15,7 @@
 				<div id="device-list">
 					<h4>No Devices Found</h4>
 					<p>Plug in your Android device to your PC with a USB-C to USB-A converter.</p>
+					<p>Alternatively, if you're able to connect to it over WiFi, you can do so by going to the menu: Timewarp &rarr; Connect to Remote ADB</p>
 				</div>
 				
 				<br/><br/>
@@ -32,6 +33,32 @@
 		</div>
 
 		<!-- Modals -->
+
+		<!-- Info Modal -->
+		<div id="about-modal" class="modal">
+			<div class="modal-content">
+				<div class="center">
+					<img src="../logo.png" width="70%" height="auto"/>
+				</div>
+				<p>Timewarp is <a href="https://github.com/SmartieCodes/timewarp" target="_blank">open-sourced</a>, and is developed by Autumn Rivers. Timewarp uses many open-source libraries such as:</p>
+				<ul>
+					<li><a href="https://github.com/electron/electron#readme" target="_blank">electron</a></li>
+					<li><a href="https://github.com/Dogfalo/materialize" target="_blank">materialize-css</a></li>
+					<li><a href="https://github.com/bitinn/node-fetch" target="_blank">node-fetch</a></li>
+					<li><a href="https://github.com/ZJONSSON/node-unzipper" target="_blank">unzipper</a></li>
+					<li><a href="https://github.com/shelljs/shelljs" target="_blank">shelljs</a></li>
+					<li><a href="https://github.com/HubSpot/vex" target="_blank">vex-js</a></li>
+				</ul>
+
+				<p>Timewarp is freeware. If you have bought this software, then you are being scammed.</p>
+
+				<br/>
+
+				<p>Timewarp is not affaliated with TWRP or its develpors.</p>
+				<p>Timewarp is licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/" target="_blank">Mozilla Public License 2.0</a>.</p>
+				<p>&copy; 2019 Autumn Rivers</p>
+			</div>
+		</div>
 
 		<!-- Device Modal -->
 		<div id="device-modal" class="modal">
@@ -122,6 +149,13 @@
 							<p>Restoration Folderpath uses a PathLike value. So if you'd like to restore an image from say, Documents... you'd have to type in "/path/to/Documents/backup.ab".</p>
 						</div>
 						<a onclick="restoreDevice(document.getElementById('restoreFile').value);" class="green btn">Restore Device</a>
+
+						<p>
+							<label>
+								<input type="checkbox" class="green filled-in" name="restoreOpts" value="mountSys"/>
+								<span>Mount /system as R/W</span>
+							</label>
+						</p>
 					</div>
 					<div id="advanced-modal-device" class="modal-c">
 						<!-- FIXME: Add some verification for reasons -->
@@ -168,7 +202,7 @@
 			</div>
 		</div>
 
-		<footer>np
+		<footer>
 			<p style="float: right;">Developed by Autumn Rivers</p>
 			<p id="tech-details">Loading...</p>
 		</footer>

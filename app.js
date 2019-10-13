@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, shell } = require('electron');
 var path = require('path');
 var fs = require('fs');
 var unix = require('shelljs');
@@ -16,13 +16,22 @@ function startApp() {
 		icon: './logo-icon.png'
     });
 
+    win.webContents.on('new-window', function(event, url) {
+        event.preventDefault();
+        shell.openExternal(url);
+    });
+
     var menu = Menu.buildFromTemplate([
         {
             "label": "Timewarp",
             "submenu": [
                 {"label": "Settings"},
-                {"label": "About"},
+                {"label": "About",
+                click() {
+                    win.webContents.send('show-about-modal');
+                }},
                 {"label": "Quit"},
+                process.env.NODE_ENV == 'dev' ? {"label": "Inspect", click() { win.webContents.openDevTools(); }} : {"type":"separator"},
                 {"label": "Connect to Remote ADB",
                 click() {
                     win.webContents.send('open-adb-vex-input');
@@ -32,9 +41,6 @@ function startApp() {
         {
             "label": "TWRP",
             "submenu": [
-                {"label": "Quick Backup"},
-                {"label": "Quick Restore"},
-                {"label": "Quick Sideload"},
                 {"label": "Backup TWRP"},
                 {"label": "Update TWRP"}
             ]
@@ -42,11 +48,11 @@ function startApp() {
         {
             "label": "Advanced",
             "submenu": [
-                {"label": "Custom Backup"},
-                {"label": "Custom Restore"},
-                {"label": "Advanced Sideload"},
                 {"label": "ADB Shell"},
-                {"label": "Restart ADB Service"},
+                {"label": "Restart ADB Service",
+                click() {
+                    unix.exec('adb kill-server', { async: true });
+                }},
                 {"label": "Quick Toggle Logcat"}
             ]
         }

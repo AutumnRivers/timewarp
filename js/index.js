@@ -17,15 +17,22 @@ function timewarp() {
 			callback: (adbIp) => {
 				if(!adbIp) return;
 				shell.exec('adb connect ' + adbIp, (c, o) => {
+					shell.config.silent = false;
 					if(o.startsWith('unable to connect')) {
-						console.error('Connection to Remote ADB server failed:\n\n' + o);
+						shell.echo('Connection to Remote ADB server failed:\n\n' + o);
+						shell.config.silent = true;
 					} else {
-						console.debug('Connection to remote ADB server established.');
+						shell.echo('Connection to remote ADB server established.');
+						shell.config.silent = true;
 					}
 				})
 			}
 		})
 	});
+
+	ipc.on('show-about-modal', () => {
+		M.Modal.getInstance(document.querySelector('#about-modal')).open();
+	})
 		
 	document.getElementById('tw-ver').innerHTML = twVer;
 	getVersion();
@@ -51,7 +58,7 @@ function getVersion() {
 function listDevices(c, d) {
 	var deviceList = d.split('\n');
 	if(!deviceList[1]) {
-		document.getElementById('device-list').innerHTML = '<h4>No Devices Found</h4><p>Plug in your Android device to your PC with a USB-C to USB-A converter.</p>';
+		document.getElementById('device-list').innerHTML = '<h4>No Devices Found</h4><p>Plug in your Android device to your PC with a USB-C to USB-A converter.</p><p>Alternatively, if you\'re able to connect to it over WiFi, you can do so by going to the menu: Timewarp &rarr; Connect to Remote ADB</p>';
 		var refresh = setInterval(() => {
 			refreshList();
 			clearInterval(refresh);
@@ -66,11 +73,12 @@ function listDevices(c, d) {
 	var listHTML = [];
 	var devicesAdded = 0;
 	var devices = deviceList.forEach((device, i) => {
-		var device = device.slice(0, -1)
+		if(!device.indexOf('.')) var device = device.slice(0, -1);
 		//<div class=android-device><h3>ANDROID ID</h3><p>Android Version<p>0 Backup(s)</p><a class="blue btn waves-effect waves-light">Select Device</a></div>
 		shell.exec('adb shell settings get secure android_id', {async: true}, (c, id) => {
 			shell.exec('adb shell getprop ro.build.version.release', {async: true}, (code, ver) => {
 				devicesAdded++;
+				console.log('device');
 				if(!id) return console.error(device + ' is unauthorized or corrupted.');
 				listHTML.push('<div class="android-device"><h3>' + id + '</h3><p>Android ' + ver + '<p>0 Backup(s)</p><a class="blue btn waves-effect waves-light select-btn modal-trigger"  onclick="openDeviceModal(\'' + device + '\')" href="#device-modal">Select Device</a></div>');
 				if(devicesAdded == deviceList.length) {

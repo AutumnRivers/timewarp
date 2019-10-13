@@ -19,6 +19,18 @@ footer {
 	z-index: 999;
 }
 
+a {
+	text-decoration: none;
+}
+
+a:not(.btn):link, a:not(.btn):hover, a:not(.btn):active  {
+	color: rgb(66, 66, 161);
+}
+
+a:not(.btn):visited {
+	color: #4caf50;
+}
+
 .android-device {
 	border: 2px solid black;
 	border-radius: 10px;
@@ -49,6 +61,10 @@ a.select-btn {
 .modal-c {
 	padding: 10px;
 	padding-top: 60px;
+}
+
+#about-modal {
+	padding: 10px;
 }
 
 #load-div {
