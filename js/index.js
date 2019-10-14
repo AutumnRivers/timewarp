@@ -8,6 +8,9 @@ var vex = require('vex-js');
 vex.registerPlugin(require('vex-dialog'));
 vex.defaultOptions.className = 'vex-theme-default';
 
+var Store = require('electron-store');
+var storage = new Store();
+
 function timewarp() {
 	M.AutoInit();
 	ipc.on('open-adb-vex-input', () => {
@@ -32,7 +35,11 @@ function timewarp() {
 
 	ipc.on('show-about-modal', () => {
 		M.Modal.getInstance(document.querySelector('#about-modal')).open();
-	})
+	});
+
+	ipc.on('show-settings-modal', () => {
+		M.Modal.getInstance(document.querySelector('#settings-modal')).open();
+	});
 		
 	document.getElementById('tw-ver').innerHTML = twVer;
 	getVersion();
@@ -78,8 +85,10 @@ function listDevices(c, d) {
 		shell.exec('adb shell settings get secure android_id', {async: true}, (c, id) => {
 			shell.exec('adb shell getprop ro.build.version.release', {async: true}, (code, ver) => {
 				devicesAdded++;
-				console.log('device');
-				if(!id) return console.error(device + ' is unauthorized or corrupted.');
+				if(!id) return console.error(device + ' is unauthorized or corrupted. Troubleshooting tips:\n1. Unlock your phone and allow your computer through USB Debugging.\n2. Boot into TWRP.');
+
+				storage.get('settings.displayDevice') == 'id' ? id = id : id = device.split('	')[0];
+
 				listHTML.push('<div class="android-device"><h3>' + id + '</h3><p>Android ' + ver + '<p>0 Backup(s)</p><a class="blue btn waves-effect waves-light select-btn modal-trigger"  onclick="openDeviceModal(\'' + device + '\')" href="#device-modal">Select Device</a></div>');
 				if(devicesAdded == deviceList.length) {
 					finishUp();

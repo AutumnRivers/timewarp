@@ -148,7 +148,6 @@
 							<label for="folderpath">Restoration Folderpath</label>
 							<p>Restoration Folderpath uses a PathLike value. So if you'd like to restore an image from say, Documents... you'd have to type in "/path/to/Documents/backup.ab".</p>
 						</div>
-						<a onclick="restoreDevice(document.getElementById('restoreFile').value);" class="green btn">Restore Device</a>
 
 						<p>
 							<label>
@@ -156,6 +155,8 @@
 								<span>Mount /system as R/W</span>
 							</label>
 						</p>
+
+						<a onclick="restoreDevice(document.getElementById('restoreFile').value);" class="green btn">Restore Device</a>
 					</div>
 					<div id="advanced-modal-device" class="modal-c">
 						<!-- FIXME: Add some verification for reasons -->
@@ -199,6 +200,55 @@
 						<a onclick="flashZip(document.getElementById('sideload').files[0].path);" class="green btn">Flash ZIP</a>
 					</div>
 				</div>
+			</div>
+		</div>
+
+		<!-- Settings Modal -->
+		<div class="modal" id="settings-modal">
+			<script src="../js/settings.js"></script>
+			<div class="modal-content">
+				<div class="row">
+					<div class="col s12">
+						<ul class="tabs">
+							<li class="tab col s4"><a href="#general-settings" class="blue-text">General</a></li>
+							<li class="tab col s4"><a href="#twrp-settings" class="blue-text">TWRP</a></li>
+							<li class="tab col s4"><a href="#advanced-settings" class="green-text">Advanced</a></li>
+						</ul>
+					</div>
+
+					<div id="general-settings" class="modal-c">
+						<h4>Display Device</h4>
+						<p>Choose how you want devices to be titled in the main screen list. Choosing Device ID provides more accuracy, but choosing ADB Number is more private.</p>
+						<div class="switch">
+							<label>
+								Device ID
+								<input type="checkbox" name="displayDevice" value="id" id="displayDevice"/>
+								<span class="lever"></span>
+								ADB Number
+							</label>
+						</div>
+					</div>
+
+					<div id="twrp-settings" class="modal-c">
+						<h4>TWRP Update Channel</h4>
+						<p>
+							<label>
+								<input type="checkbox" class="green filled-in" name="twrpPrefs" value="customChannel" onclick="toggleTWRPChannel();"/>
+								<span>Use Custom TWRP Channel</span>
+							</label>
+						</p>
+
+						<div class="input-field">
+							<input id="twrpChannel" type="text" value="https://twrp.me/applist.json" id="twrpChannelURL"/>
+							<label for="folderpath">TWRP Update Channel</label>
+							<p>Restoration Folderpath uses a PathLike value. So if you'd like to restore an image from say, Documents... you'd have to type in "/path/to/Documents/backup.ab".</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<a class="modal-close waves-effect waves-blue blue btn-flat" onclick="saveSettings();">Save Settings</a>
 			</div>
 		</div>
 

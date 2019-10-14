@@ -26,9 +26,12 @@
     "electron": "^6.0.12",
     "materialize-css": "^1.0.0",
     "node-fetch": "^2.6.0",
+    "ps-tree": "^1.2.0",
     "unzipper": "^0.10.5"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "electron-store": "^5.0.0",
     "shelljs": "^0.8.3",
     "vex-dialog": "^1.1.0",
     "vex-js": "^4.1.0"

@@ -25,7 +25,10 @@ function startApp() {
         {
             "label": "Timewarp",
             "submenu": [
-                {"label": "Settings"},
+                {"label": "Settings",
+                click() {
+                    win.webContents.send('show-settings-modal');
+                }},
                 {"label": "About",
                 click() {
                     win.webContents.send('show-about-modal');
