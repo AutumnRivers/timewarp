@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "disable-gpu": "electron . --disable-gpu",
-    "setup-win": "npm i -g cash"
+    "enable-wipe": "electron . --enable-wipe",
+    "enable-wg": "electron . --disable-gpu --enable-wipe"
   },
   "repository": {
     "type": "git",

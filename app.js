@@ -13,13 +13,19 @@ function startApp() {
             webviewTag: false
         },
 		frame: true,
-		icon: './logo-icon.png'
+		icon: '../images/logo-icon.png'
     });
 
     win.webContents.on('new-window', function(event, url) {
         event.preventDefault();
         shell.openExternal(url);
     });
+
+    if(process.argv.includes('--enable-wipe')) {
+        // Check for the --enable-wipe argument
+        // If it's there, activate it with a global variable
+        global.experimentalFeaturesWipe = 'enabled';
+    }
 
     var menu = Menu.buildFromTemplate([
         {

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Timewarp - Home</title>
+		<title>Timewarp Developer Build</title>
 		<link rel="stylesheet" href="../css/default.css" />
 		<script src="../js/index.js" type="text/javascript"></script>
+		<script src="../js/twrp.js" type="text/javascript"></script>
 	</head>
 	<body onload="timewarp();">
 		<div id="top-banner">
@@ -38,7 +39,7 @@
 		<div id="about-modal" class="modal">
 			<div class="modal-content">
 				<div class="center">
-					<img src="../logo.png" width="70%" height="auto"/>
+					<img src="../images/logo.png" width="70%" height="auto"/>
 				</div>
 				<p>Timewarp is <a href="https://github.com/SmartieCodes/timewarp" target="_blank">open-sourced</a>, and is developed by Autumn Rivers. Timewarp uses many open-source libraries such as:</p>
 				<ul>
@@ -52,11 +53,13 @@
 
 				<p>Timewarp is freeware. If you have bought this software, then you are being scammed.</p>
 
-				<br/>
+				<hr/>
 
 				<p>Timewarp is not affaliated with TWRP or its develpors.</p>
 				<p>Timewarp is licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/" target="_blank">Mozilla Public License 2.0</a>.</p>
 				<p>&copy; 2019 Autumn Rivers</p>
+				<hr/>
+				<p>Please note this version of Timewarp is still in its early development stages. Please do not attempt to mess with anything unless you know the risks.</p>
 			</div>
 		</div>
 
@@ -67,7 +70,7 @@
 				<p class="center" id="device-details">Loading...</p>
 				<div class="row">
 					<div class="col s12">
-						<ul class="tabs">
+						<ul class="tabs" id="device-tabs">
 							<li class="tab col s3"><a href="#basic-device" class="blue-text">Basic</a></li>
 							<li class="tab col s3"><a href="#adv-device-backup" class="green-text">Adv. Backup</a></li>
 							<li class="tab col s3"><a href="#adv-device-restore" class="green-text">Adv. Restore</a></li>
@@ -75,7 +78,7 @@
 						</ul>
 					</div>
 					<div id="basic-device" class="modal-c">
-						<a class="blue btn">Backup</a>
+						<a class="blue btn" onclick="twrp(document.querySelector('#adb-id').value, { isQuick: true, method: 'backup' })">Backup</a>
 						<p><b>BACKUP</b> - Backup your current device with the default settings. Will reboot your device into TWRP if it's not in TWRP already.</p>
 						<a class="blue btn">Restore</a>
 						<p><b>RESTORE</b> - Restore the latest backup for this device. Will reboot your device into TWRP if it's not in TWRP already.</p>
@@ -199,6 +202,12 @@
 
 						<a onclick="flashZip(document.getElementById('sideload').files[0].path);" class="green btn">Flash ZIP</a>
 					</div>
+					<div id="advanced-wipe" class="modal-c">
+						<!-- If you're seeing this, then the wipe feature isn't enabled. -->
+						<!-- Well actually, as of 0.0.1-alpha, you're seeing this because the wipe feature hasn't been implemented yet. -->
+						<h5>Coming Soon</h5>
+						<p>Check back on Timewarp Beta!</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -239,7 +248,7 @@
 						</p>
 
 						<div class="input-field">
-							<input id="twrpChannel" type="text" value="https://twrp.me/applist.json" id="twrpChannelURL"/>
+							<input id="twrpChannel" type="text" value="https://twrp.me/applist.json" id="twrpChannelURL" disabled/>
 							<label for="folderpath">TWRP Update Channel</label>
 							<p>Restoration Folderpath uses a PathLike value. So if you'd like to restore an image from say, Documents... you'd have to type in "/path/to/Documents/backup.ab".</p>
 						</div>

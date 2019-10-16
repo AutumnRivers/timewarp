@@ -2,6 +2,7 @@ var shell = require('shelljs');
 var twVer = require('electron').remote.app.getVersion();
 var M = require('materialize-css');
 var ipc = require('electron').ipcRenderer;
+var remote = require('electron').remote;
 shell.config.silent = true;
 
 var vex = require('vex-js');
@@ -56,6 +57,12 @@ function timewarp() {
 		document.getElementById('device-scan').innerHTML = '<div class=progress id="loading"><div class="indeterminate"></div></div><p>Scanning for devices...</p>';
 		listDevices(code, output);
 	});
+
+	// Check if the Wipe feature is enabled
+	if(remote.getGlobal('experimentalFeaturesWipe') == 'enabled') {
+		// Activate it if so
+		document.querySelector('#device-tabs').innerHTML = '<li class="col tab s3"><a class=blue-text href=#basic-device>Basic</a></li><li class="col tab s3"><a class=green-text href=#adv-device-backup>Adv. Backup</a></li><li class="col tab s2"><a class=green-text href=#adv-device-restore>Adv. Restore</a></li><li class="col tab s2"><a class=green-text href=#advanced-modal-device>Adv. Flash</a></li><li class="col tab s2"><a class=red-text href=#advanced-wipe>Adv. Wipe</a></li>'
+	}
 
 }
 
