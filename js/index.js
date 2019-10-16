@@ -11,6 +11,11 @@ vex.defaultOptions.className = 'vex-theme-default';
 var Store = require('electron-store');
 var storage = new Store();
 
+function addRefreshButton() {
+	// FIXME: This doesn't run on Windows unless called from the console
+	document.getElementById('device-scan').innerHTML = '<a class="blue btn waves-effect waves-light" onclick="refreshList();">Refresh List</a>';
+}
+
 function timewarp() {
 	M.AutoInit();
 	ipc.on('open-adb-vex-input', () => {
@@ -65,12 +70,11 @@ function getVersion() {
 function listDevices(c, d) {
 	var deviceList = d.split('\n');
 	if(!deviceList[1]) {
+		addRefreshButton();
 		document.getElementById('device-list').innerHTML = '<h4>No Devices Found</h4><p>Plug in your Android device to your PC with a USB-C to USB-A converter.</p><p>Alternatively, if you\'re able to connect to it over WiFi, you can do so by going to the menu: Timewarp &rarr; Connect to Remote ADB</p>';
-		var refresh = setInterval(() => {
+		setTimeout(() => {
 			refreshList();
-			clearInterval(refresh);
 		}, 60000);
-		addRefreshButton(refresh);
 	}
 	// Start at [1] because the first newline has nothing to do with what devices exist.
 	deviceList.shift();
@@ -81,10 +85,10 @@ function listDevices(c, d) {
 	var devicesAdded = 0;
 	var devices = deviceList.forEach((device, i) => {
 		if(!device.indexOf('.')) var device = device.slice(0, -1);
-		//<div class=android-device><h3>ANDROID ID</h3><p>Android Version<p>0 Backup(s)</p><a class="blue btn waves-effect waves-light">Select Device</a></div>
 		shell.exec('adb shell settings get secure android_id', {async: true}, (c, id) => {
 			shell.exec('adb shell getprop ro.build.version.release', {async: true}, (code, ver) => {
 				devicesAdded++;
+				if(device.startsWith('* daemon')) return;
 				if(!id) return console.error(device + ' is unauthorized or corrupted. Troubleshooting tips:\n1. Unlock your phone and allow your computer through USB Debugging.\n2. Boot into TWRP.');
 
 				storage.get('settings.displayDevice') == 'id' ? id = id : id = device.split('	')[0];
@@ -98,13 +102,12 @@ function listDevices(c, d) {
 	});
 
 	function finishUp() {
+		addRefreshButton();
 		const finalHTML = listHTML.join('<br/>');
 		document.getElementById('device-list').innerHTML = finalHTML;
-		var refresh = setInterval(() => {
+		setTimeout(() => {
 			refreshList();
-			clearInterval(refresh);
-		}, 120000);
-		addRefreshButton(refresh);
+		}, 60000);
 	}
 }
 
@@ -116,10 +119,6 @@ function refreshList() {
 		document.getElementById('device-scan').innerHTML = '<div class=progress id="loading"><div class="indeterminate"></div></div><p>Scanning for devices...</p>';
 		listDevices(code, output);
 	});
-}
-
-function addRefreshButton(r) {
-	document.getElementById('device-scan').innerHTML = '<a class="blue btn waves-effect waves-light" onclick="refreshList(); clearInterval(' + r + ');">Refresh List</a>';
 }
 
 function openDeviceModal(device) {

@@ -1,0 +1,14 @@
+{
+    "editor.wordWrap": "on",
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
+    "workbench.iconTheme": "vscode-icons",
+    "vsicons.dontShowNewVersionMessage": true,
+    "window.zoomLevel": 0,
+    "todohighlight.keywords": [
+        {
+            "text": "BUG:",
+            "backgroundColor": "#53701f",
+            "color": "#000000"
+        }
+    ]
+}

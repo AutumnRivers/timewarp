@@ -1,3 +1,7 @@
 *.zip
 adb/
 node_modules/
+
+# Ignore backup files
+backups/
+*.ab

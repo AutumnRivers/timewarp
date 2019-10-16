@@ -76,7 +76,10 @@ Local development with Timewarp is also very simple.
 
 3. Install required packages
 
-`npm install`
+`yarn` / `npm install`
+
+**NOTE**: It is highly recommended you install packages with `yarn`.
+If you do not have it, [install it](https://yarnpkg.com/lang/en/docs/install/#windows-stable).
 
 4. Profit!
 
