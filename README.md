@@ -1,4 +1,4 @@
-<h1 align="center"><img src="./logo.png"/></h1>
+<h1 align="center"><img src="./images/logo.png"/></h1>
 
 <div align="center">
 <img src="https://david-dm.org/SmartieCodes/timewarp.svg">
