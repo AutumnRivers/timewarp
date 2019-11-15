@@ -63,8 +63,12 @@ function downloadADB() {
             console.log('ADB ZIP downloaded.')
             var exPipe = fs.createReadStream('./adb-tools.zip').pipe(unzip.Extract( { path: './adb/' } ));
             exPipe.on('finish', () => {
-                // Add ADB to the system PATH. This, theoritically, should be the same regardless of OS.
-                shell.exec(`export PATH=${process.env.PATH}` + sep + path.join(__dirname, './adb/platform-tools'));
+                if(os.platform !== 'win32') {
+                    shell.exec(`export PATH=${process.env.PATH}` + sep + path.join(__dirname, './adb/platform-tools'));
+                } else {
+                    shell.exec(`setx PATH "%PATH%;${path.join(__dirname, './adb/platform-tools')}"`);
+                }
+                
                 console.log('ADB successfully installed.');
                 vex.dialog.alert('ADB was successfully installed and added to your system PATH. If you still get errors saying ADB does not exist, restart your system. Timewarp will restart in 7 seconds.');
                 setTimeout(() => {
